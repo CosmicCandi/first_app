@@ -20,10 +20,7 @@ end
 
 get "/lorem" do
   status 200
-  lorems = Lorem.find_by(name: params['lipsum']).name
-  "#{lorem.name("bacon")}"
-  "#{lorem.name("pirate")}"
-  "#{lorem.name("sagan")}"
+  "You almost had it.  Try <ul><li>/lorems/bacon</li> <li>/lorems/pirate</li><li>/lorems/sagan</li></ul>"
 end
 
 get "/:name" do
@@ -31,11 +28,5 @@ get "/:name" do
 end
 
 get '/lorem/:name' do
-  if Lorem.find_by(name: params["bacon"])
-    p "#{Lorem.find_by(name: params['bacon'])}.inspect"
-  elsif Lorem.find_by(name: params["pirate"])
-    p "#{Lorem.find_by(name: params['pirate'])}.class"
-  elsif Lorem.find_by(name: params["sagan"])
-    p "#{Lorem.find_by(name: params['sagan'])}.paragraph"
-  end
+  Lorem.find_by(name: params['name']).paragraph
 end
