@@ -1,4 +1,14 @@
+require 'active_record'
+require 'bundler/setup'
 require 'sinatra'
+require 'sqlite3'
+
+require_relative 'lipsum'
+
+ActiveRecord::Base.establish_connection(
+  adapter: "sqlite3",
+  database: "lipsum_db.sqlite3"
+)
 
 get '/' do
   'Hello World'
@@ -11,7 +21,10 @@ end
 
 get "/lipsum" do
   status 200
-  "You almost had it. <br><br> Try: <br><ul> <li>/lipsum/bacon</li> <br> <li>/lipsum/pirate</li> <br> <li>/lipsum/sagan</li></ul>"
+  lipsum = Lipsum.all
+  lipsum.each do |l|
+    puts "#{l} <br>"
+  end  
 end
 
 get "/:name" do
